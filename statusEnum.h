@@ -5,7 +5,8 @@ enum StatusEnum{
     OK,
     INVALID_SOURCE,
     INVALID_TARGET,
-    INVALID_ENTRY
+    INVALID_ENTRY,
+    NO_PIECE_IN_HOUSE
 };
 
 #endif // STATUSENUM_H

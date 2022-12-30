@@ -15,20 +15,24 @@ class Board
         int p1Pieces[NB_SIZE];
         int p2Pieces[NB_SIZE];
 
-        Cell& getCellAt(int line, int column);
+        Cell& getCellAt(int row, int column);
         int* getHousesOfPlayer(Player player);
+        bool isValideTarget(int row, int column);
+        Player validateRow(int row);
+        Player validateColumn(int column);
+        Player validateDiagonals();
     public:
         Board();
         Board(const Board& other);
         ~Board();
 
         Player nextPlayer(Player currentPlayer) const;
-        Player getPlaceHolder(int line, int column);
-        Size getPieceSize(int line, int column);
+        Player getPlaceHolder(int row, int column);
+        Size getPieceSize(int row, int column);
         int getNbPiecesInHouse(Player checkedPlayer, Size pieceSize);
 
-        StatusEnum placePiece(Player currentPlayer, Size pieceSize, int line, int column);
-        StatusEnum movePiece(int sourceLine, int sourceColumn, int targetLine, int targetColumn);
+        StatusEnum placePiece(Player currentPlayer, Size pieceSize, int row, int column);
+        StatusEnum movePiece(int sourcerow, int sourceColumn, int targetrow, int targetColumn);
 
         Player getWinner();
 

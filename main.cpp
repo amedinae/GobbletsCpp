@@ -2,8 +2,6 @@
 #include <string>
 #include "board.h"
 
-using namespace std;
-
 int main()
 {
     char action; int l1; int c1; int l2; int c2; int s; //inputs
@@ -11,39 +9,44 @@ int main()
     Player winner;
 
     Board* game = new Board();
-    Player currentPlayer = PLAYER_1;
+    Player currentPlayer = PLAYER_2;
 
-    do{
-        std::cout << std::endl << std::endl << std::endl;
-        std::cout << *game << std::endl;
+    game->placePiece(currentPlayer,SMALL,0,0);
+    //game->placePiece(currentPlayer,SMALL,0,1);
+    //game->placePiece(currentPlayer,SMALL,2,2);
+    game->printHouses(std::cout,currentPlayer);
 
-        winner = game->getWinner();
+//    do{
+//        std::cout << std::endl << std::endl << std::endl;
+//        std::cout << *game << std::endl;
 
-        if(winner != NO_PLAYER){
-            switch(currentPlayer){
-            case PLAYER_1:
-            // A compléter
+//        winner = game->getWinner();
 
-            case PLAYER_2:
-            // A compléter
+//        if(winner != NO_PLAYER){
+//            switch(currentPlayer){
+//            case PLAYER_1:
+//            // A compléter
 
-            default:
-            ;// A compléter
-            }
-            return 0;
-        }
+//            case PLAYER_2:
+//            // A compléter
 
-
-        std::cout << "Action choice. 1: Place, 2: Move, q:Quit" << std::endl;
-        std::cin >> action;
-
-        // A compléter
-
-        /* If an error occurs, print something and replay this turn.*/
-        // A compléter
+//            default:
+//            ;// A compléter
+//            }
+//            return 0;
+//        }
 
 
-    } while(true);
+//        std::cout << "Action choice. 1: Place, 2: Move, q:Quit" << std::endl;
+//        std::cin >> action;
+
+//        // A compléter
+
+//        /* If an error occurs, print something and replay this turn.*/
+//        // A compléter
+
+
+//    } while(true);
     return 0;
 }
 
