@@ -7,7 +7,8 @@ SOURCES += \
         board.cpp \
         cell.cpp \
         main.cpp \
-        piece.cpp
+        piece.cpp \
+        uioutils.cpp
 
 HEADERS += \
     board.h \
@@ -15,4 +16,5 @@ HEADERS += \
     config.h \
     piece.h \
     playerenum.h \
-    statusEnum.h
+    statusEnum.h \
+    uioutils.h

@@ -2,6 +2,7 @@
 #define PIECE_H
 
 #include "playerEnum.h"
+#include <iostream>
 
 enum Size{
     NONE,
@@ -25,6 +26,8 @@ class Piece
         Size getSize() const;
 
         Piece& operator=(const Piece& other);
+
+        friend std::ostream& operator<<(std::ostream& stream, const Piece& piece);
 };
 
 #endif // PIECE_H

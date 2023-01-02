@@ -21,6 +21,8 @@ class Board
         Player validateRow(int row);
         Player validateColumn(int column);
         Player validateDiagonals();
+        std::ostream& printColoredPiece(std::ostream& stream, Piece piece);
+        std::ostream& printBoardRow(std::ostream& stream, int row);
     public:
         Board();
         Board(const Board& other);
@@ -39,6 +41,5 @@ class Board
         std::ostream& printHouses(std::ostream& stream, Player player);
         friend std::ostream& operator<<(std::ostream& stream, Board& board);
 };
-
 
 #endif // BOARD_H

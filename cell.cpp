@@ -1,14 +1,11 @@
 #include "cell.h"
 #include <iostream>
 
-Cell::Cell() : index(-1) {
-    std::cout<<"Cell created"<<std::endl;
-}
+Cell::Cell() : index(-1) {}
 
 Cell::Cell(const Cell& other) {
     index = other.index;
     std::copy(std::begin(other.stack), std::end(other.stack), std::begin(stack));
-    std::cout<<"Cell copied"<<std::endl;
 }
 
 bool Cell::canPush(const Piece& piece) {
@@ -31,6 +28,10 @@ Piece& Cell::pop() {
 }
 
 Piece& Cell::peek() {
+    if(index==-1){
+        stack[0] = Piece();
+        return stack[0];
+    }
     return stack[index];
 }
 

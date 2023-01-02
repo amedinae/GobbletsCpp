@@ -1,16 +1,14 @@
 #include "board.h"
 #include <iostream>
+#include "uioutils.h"
 #include <vector>
 
 Board::Board() {
     std::fill(std::begin(p1Pieces), std::end(p1Pieces), NB_INITIAL_PIECES);
     std::fill(std::begin(p2Pieces), std::end(p2Pieces), NB_INITIAL_PIECES);
-    std::cout<<"Board created"<<std::endl;
 }
 
-Board::~Board() {
-    std::cout<<"Board destroyed"<<std::endl;
-}
+Board::~Board() {}
 
 Cell& Board::getCellAt(int row, int column) {
     return state[row][column];
@@ -146,48 +144,55 @@ Player Board::getWinner() {
     return NO_PLAYER;
 }
 
-char getSymbolBySizeAndPlayer(Player p, Size s) {
-    char empty = ' ';
-    switch (p) {
-    case NO_PLAYER:
-        return empty;
-    case PLAYER_1:
-        switch (s) {
-            case NONE:
-                return empty;
-            case SMALL:
-                return SMALLP1;
-            case MEDIUM:
-                return MEDIUMP1;
-            case LARGE:
-                return LARGEP1;
-        }
-    case PLAYER_2:
-        switch (s) {
-            case NONE:
-                return empty;
-            case SMALL:
-                return SMALLP2;
-            case MEDIUM:
-                return MEDIUMP2;
-            case LARGE:
-                return LARGEP2;
-        }  
-    }
-}
-
-std::ostream& Board::printHouses(std::ostream& os, Player player) {
-    os<<"Player "<<player<<" house: ";
+std::ostream& Board::printHouses(std::ostream& stream, Player player) {
+    UiOutils::changeColorByPlayer(stream, player);
     for (int i = SMALL; i <= LARGE; i++) {
         Size currentSize = Size(i);
         int nbPiecesInHouse = getNbPiecesInHouse(player,currentSize);
         for (int j = 0; j < NB_INITIAL_PIECES; j++) {
             if (j < nbPiecesInHouse) {
-                os<< getSymbolBySizeAndPlayer(player,currentSize)<<" ";
+                Piece* pieceToPrint = new Piece(player,currentSize);
+                stream << *pieceToPrint<<" ";
             } else {
-                os << " ";
+                stream << "  ";
             }
         }
     }
-    return os;
+    UiOutils::resetColor(stream);
+    return stream;
+}
+
+std::ostream& Board::printColoredPiece(std::ostream& stream, Piece piece) {
+    UiOutils::changeColorByPlayer(stream, piece.getOwner());
+    stream << piece << " ";
+    UiOutils::resetColor(stream);
+    return stream;
+}
+
+std::ostream& Board::printBoardRow(std::ostream& stream, int row) {
+    stream << "|";
+    for (int j = 0; j < DIMENSIONS; j++) {
+        stream << " ";
+        Piece piece = getCellAt(row, j).peek();
+        printColoredPiece(stream, piece);
+        stream << "|";
+    }
+    return stream;
+}
+
+std::ostream& operator<<(std::ostream& stream, Board& board) {
+    char levelSeparator[] = "+---+---+---+\n";
+    printf("%s", levelSeparator);
+    for (int i = 0; i < DIMENSIONS; i++) {
+        board.printBoardRow(stream, i);
+        stream<<"       ";
+        if (i == 0) {
+            stream<<"Contenu des maisons";
+        } else {
+            board.printHouses(stream, Player(i));
+        }
+        stream<<"\n";
+        stream<<levelSeparator;
+    }
+    return stream;
 }

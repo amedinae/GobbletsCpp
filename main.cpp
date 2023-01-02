@@ -1,52 +1,51 @@
 #include <iostream>
 #include <string>
 #include "board.h"
+#include "uioutils.h"
 
 int main()
 {
-    char action; int l1; int c1; int l2; int c2; int s; //inputs
-    StatusEnum status;
-    Player winner;
+    char action; int sourceRow, sourceCol, targetRow, targetCol;
+    Size size; //inputs
+    StatusEnum status = INVALID_ENTRY;
 
     Board* game = new Board();
-    Player currentPlayer = PLAYER_2;
-
-    game->placePiece(currentPlayer,SMALL,0,0);
-    //game->placePiece(currentPlayer,SMALL,0,1);
-    //game->placePiece(currentPlayer,SMALL,2,2);
-    game->printHouses(std::cout,currentPlayer);
-
-//    do{
-//        std::cout << std::endl << std::endl << std::endl;
-//        std::cout << *game << std::endl;
-
-//        winner = game->getWinner();
-
-//        if(winner != NO_PLAYER){
-//            switch(currentPlayer){
-//            case PLAYER_1:
-//            // A compléter
-
-//            case PLAYER_2:
-//            // A compléter
-
-//            default:
-//            ;// A compléter
-//            }
-//            return 0;
-//        }
-
-
-//        std::cout << "Action choice. 1: Place, 2: Move, q:Quit" << std::endl;
-//        std::cin >> action;
-
-//        // A compléter
-
-//        /* If an error occurs, print something and replay this turn.*/
-//        // A compléter
-
-
-//    } while(true);
+    Player currentPlayer = PLAYER_1;
+    do {
+        UiOutils::printSeparator(std::cout);
+        UiOutils::printPlayerTurn(std::cout, currentPlayer);
+        std::cout << *game;
+        action = UiOutils::selectAction(std::cout, std::cin);
+        switch (action) {
+            case '0':
+                targetRow = UiOutils::selectPosition(std::cout, std::cin, "Sur quelle ligne voulez-vous jouer? ");
+                targetCol = UiOutils::selectPosition(std::cout, std::cin, "Sur quelle colonne voulez-vous jouer? ");
+                size = UiOutils::selectSize(std::cout, std::cin);
+                status = game->placePiece(currentPlayer, size, targetRow, targetCol);
+                UiOutils::printPlaceErrorMessageByStatus(std::cout, status);
+                break;
+            case '1':
+                sourceRow = UiOutils::selectPosition(std::cout, std::cin, "De quelle ligne voulez-vous déplacer? ");
+                sourceCol = UiOutils::selectPosition(std::cout, std::cin, "De quelle colonne voulez-vous déplacer? ");
+                targetRow = UiOutils::selectPosition(std::cout, std::cin, "Sur quelle ligne voulez-vous jouer? ");
+                targetCol = UiOutils::selectPosition(std::cout, std::cin, "Sur quelle colonne voulez-vous jouer? ");
+                status = game->movePiece(sourceRow, sourceCol, targetRow, targetCol);
+                UiOutils::printMoveErrorMessageByStatus(std::cout, status);
+                break;
+            case 'q':
+                if(UiOutils::exitConfirmation(std::cout, std::cin)) {
+                    UiOutils::printWinnerByQuit(std::cout,game->nextPlayer(currentPlayer),currentPlayer);
+                    exit(0);
+                }
+            default:
+                break;
+        }
+        if (status==OK) {
+            currentPlayer = game->nextPlayer(currentPlayer);
+        }
+    }
+    while(game->getWinner()==NO_PLAYER);
+    std::cout << *game;
     return 0;
 }
 
