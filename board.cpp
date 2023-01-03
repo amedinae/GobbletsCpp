@@ -174,8 +174,7 @@ std::ostream& Board::printBoardRow(std::ostream& stream, int row) {
     stream << "|";
     for (int j = 0; j < DIMENSIONS; j++) {
         stream << " ";
-        Piece piece = getCellAt(row, j).peek();
-        printColoredPiece(stream, piece);
+        printColoredPiece(stream, getCellAt(row, j).peek());
         stream << "|";
     }
     return stream;

@@ -29,7 +29,7 @@ Piece& Cell::pop() {
 
 Piece& Cell::peek() {
     if(index==-1){
-        stack[0] = Piece();
+        stack[0].reinitilize();
         return stack[0];
     }
     return stack[index];

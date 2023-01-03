@@ -16,6 +16,11 @@ Size Piece::getSize() const {
     return size;
 }
 
+void Piece::reinitilize() {
+    owner = NO_PLAYER;
+    size = NONE;
+}
+
 Piece& Piece::operator=(const Piece& other) {
     owner = other.owner;
     size = other.size;
