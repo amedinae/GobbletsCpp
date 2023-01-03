@@ -1,4 +1,4 @@
-Because I use `windows.h` this program only works on windows and generating an executable in Qt creator may give problems. You can easily compile using g++:
+Due to the fact that I use `windows.h` this program only works on windows and generating an executable in Qt creator may give problems. You can easily compile using g++:
 ```
 g++ -o Gobblets *.cpp
 ```
