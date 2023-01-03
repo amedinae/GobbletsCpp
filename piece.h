@@ -24,7 +24,7 @@ class Piece
 
         Player getOwner() const;
         Size getSize() const;
-
+        void reinitilize();
         Piece& operator=(const Piece& other);
 
         friend std::ostream& operator<<(std::ostream& stream, const Piece& piece);
