@@ -4,6 +4,7 @@
 #include "piece.h"
 #include "statusEnum.h"
 #include <string>
+#include <cstring>
 #include <cctype>
 #include <iostream>
 #include <windows.h>
@@ -70,7 +71,7 @@ char UiOutils::getValidChar(std::ostream& out, std::istream& in, const std::stri
     while (true) {
         out << message;
         in >> c;
-        if ((c.length() == 1) && (std::strchr(validChars, c[0]) != nullptr)) {
+        if ((c.length() == 1) && (strchr(validChars, c[0]) != nullptr)) {
             return c[0];
         } else {
             printInputErrorMessage(out);

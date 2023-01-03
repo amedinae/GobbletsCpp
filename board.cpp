@@ -2,6 +2,7 @@
 #include <iostream>
 #include "uioutils.h"
 #include <vector>
+#include <algorithm>
 
 Board::Board() {
     std::fill(std::begin(p1Pieces), std::end(p1Pieces), NB_INITIAL_PIECES);
