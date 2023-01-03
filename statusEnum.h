@@ -1,0 +1,12 @@
+#ifndef STATUSENUM_H
+#define STATUSENUM_H
+
+enum StatusEnum{
+    OK,
+    INVALID_SOURCE,
+    INVALID_TARGET,
+    INVALID_ENTRY,
+    NO_PIECE_IN_HOUSE
+};
+
+#endif // STATUSENUM_H
