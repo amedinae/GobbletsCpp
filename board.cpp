@@ -145,7 +145,7 @@ Player Board::getWinner() {
 }
 
 std::ostream& Board::printHouses(std::ostream& stream, Player player) {
-    UiOutils::changeColorByPlayer(stream, player);
+    UiOutils::changeColorByPlayer(player);
     for (int i = SMALL; i <= LARGE; i++) {
         Size currentSize = Size(i);
         int nbPiecesInHouse = getNbPiecesInHouse(player,currentSize);
@@ -158,14 +158,14 @@ std::ostream& Board::printHouses(std::ostream& stream, Player player) {
             }
         }
     }
-    UiOutils::resetColor(stream);
+    UiOutils::resetColor();
     return stream;
 }
 
 std::ostream& Board::printColoredPiece(std::ostream& stream, Piece piece) {
-    UiOutils::changeColorByPlayer(stream, piece.getOwner());
+    UiOutils::changeColorByPlayer(piece.getOwner());
     stream << piece << " ";
-    UiOutils::resetColor(stream);
+    UiOutils::resetColor();
     return stream;
 }
 
